@@ -2,25 +2,25 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
+        <title>Boolflix</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
         <link rel="stylesheet" href="css/style.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <title></title>
     </head>
     <body>
 
-        <input type="search" name="" value="">
-        <button type="button" name="button">Search</button>
+        <input type="search" id="inp">
+        <button type="button" id="btg-search">Search</button>
 
         <div class="list-film"></div>
 
         <script id="film-template" type="text/x-handlebars-template">
 
             <div class="fm">
-                <h3>{{title}}</h3>
-                <h4>{{original_title}}</h4>
-                <span class="language">{{original_language}}</span>
-                <span class="vote">{{vote_average}}</span>
+                <h3>Titolo: {{title}}</h3>
+                <h4>Titolo originale: {{original_title}}</h4>
+                <p>Lingua: {{original_language}}</p>
+                <p>Voto: {{vote_average}}</p>
             </div>
 
         </script>

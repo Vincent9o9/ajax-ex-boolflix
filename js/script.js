@@ -10,32 +10,45 @@
 // Lingua
 // Voto
 
-// {
-//     "page": 1,
-//     "total_results": 4,
-//     "total_pages": 1,
-//     "results": [
-//         {
-//             "popularity": 60.332,
-//             "vote_count": 17638,
-//             "video": false,
-//             "poster_path": "/xvjOBWfm32skiwIAU2iocb6fyC8.jpg",
-//             "id": 120,
-//             "adult": false,
-//             "backdrop_path": "/vRQnzOn4HjIMX4LBq9nHhFXbsSu.jpg",
-//             "original_language": "en",
-//             "original_title": "The Lord of the Rings: The Fellowship of the Ring",
-//             "genre_ids": [
-//                 28,
-//                 12,
-//                 14
-//             ],
-//             "title": "Il Signore degli Anelli - La compagnia dell'anello",
-//             "vote_average": 8.3,
-//             "overview": "Bilbo Baggins ha deciso di celebrare il suo centoundicesimo compleanno in maniera molto particolare;alla fine della festa, abbandona parenti, amici, conoscenti e il suo affezionato nipote Frodo, cui lascia ogni cosa. Lo stregone Gandalf insiste perché lo hobbit lasci a Frodo anche il suo anello magico, su cui intende tenere un occhio vigile e fare alcune ricerche, perché potrebbe celare un mistero più inquietante di quanto non sembri. E così è; quello di Bilbo è l'Unico Anello, l'Anello per domarli, il cuore del potere del malefico Signore Oscuro Sauron, che sta tornando a tessere le sue trame di conquista e distruzione. Per impedirgli di vedere realizzato il suo sanguinoso disegno, l'anello dovrà essere distrutto, cosa possibile soltanto nella fornace di Monte Fato, dove Sauron, secoli prima, lo forgiò.",
-//             "release_date": "2001-12-18"
-//         },
 
 $(document).ready(function() {
 
+    $('#btg-search').click(function() {
+
+        var ricercaFilm = $('#inp').val();
+        $('.list-film').empty();
+
+        $.ajax(
+        {
+            url:'https://api.themoviedb.org/3/search/movie',
+            method: 'GET',
+            data:{
+                api_key: '50aabbde5596b4f1a538a2fbc3fe6ee9',
+                language:'it-IT',
+                query: ricercaFilm
+            },
+            success: function(risposta){
+                for(var i = 0; i < risposta.results.length; i++) {
+
+                    var source = $("#film-template").html();
+
+                    var template = Handlebars.compile(source);
+
+                    var context = {
+                        title: risposta.results[i].title,
+                        original_title: risposta.results[i].original_title,
+                        original_language: risposta.results[i].original_language,
+                        vote_average: risposta.results[i].vote_average
+                    };
+
+                    var html = template(context);
+                    $('.list-film').append(html);
+                };
+            },
+            error: function(){
+                alert('errore');
+            }
+        }
+        )
+    });
 });
