@@ -8,6 +8,24 @@
         <title></title>
     </head>
     <body>
+
+        <input type="search" name="" value="">
+        <button type="button" name="button">Search</button>
+
+        <div class="list-film"></div>
+
+        <script id="film-template" type="text/x-handlebars-template">
+
+            <div class="fm">
+                <h3>{{title}}</h3>
+                <h4>{{original_title}}</h4>
+                <span class="language">{{original_language}}</span>
+                <span class="vote">{{vote_average}}</span>
+            </div>
+
+        </script>
+
         <script src="js/script.js" charset="utf-8"></script>
+
     </body>
 </html>
