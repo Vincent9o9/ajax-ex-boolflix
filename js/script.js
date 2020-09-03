@@ -109,9 +109,9 @@ function stella(numero) {
     var star = '';
     for (var i = 1; i <= 5; i++) {
         if(i <= arrotondamento) {
-            star += '<i class="fas fa-star"></i>'
+            star += '<i class="fa fa-star"></i>'
         }else {
-            star += '<i class="fas fa-star-o"></i>'
+            star += '<i class="fa fa-star-o"></i>'
         }
     };
     return star;
