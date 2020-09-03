@@ -24,12 +24,48 @@
 // sia le serie tv, stando attenti ad avere alla fine dei valori simili
 // (le serie e i film hanno campi nel JSON di risposta diversi, simili ma non sempre identici)
 
+// "page": 1,
+//     "total_results": 247,
+//     "total_pages": 13,
+//     "results": [
+//         {
+//             "original_name": "Friends",
+//             "genre_ids": [
+//                 35,
+//                 18
+//             ],
+//             "name": "Friends",
+//             "popularity": 137.282,
+//             "origin_country": [
+//                 "US"
+//             ],
+//             "vote_count": 2973,
+//             "first_air_date": "1994-09-22",
+//             "backdrop_path": "/l0qVZIpXtIo7km9u5Yqh0nKPOr5.jpg",
+//             "original_language": "en",
+//             "id": 1668,
+//             "vote_average": 8.2,
+//             "overview": "Friends è una sitcom americana trasmessa in USA dal 1994 al 2004. La serie descrive un gruppo di amici (da cui il titolo) del circondario di Manhattan a New York, i loro rapporti e le loro interazioni reciproche.  E' stata una delle serie più seguite del decennio, la puntata finale è stata vista da più di 52 milioni di persone nei soli Stati Uniti, facendone il quarto finale più visto di tutti i tempi e il primo dell'ultimo decennio.",
+//             "poster_path": "/f496cm9enuEsZkSPzCwnTESEK5s.jpg"
+//         },
+
+
 
 $(document).ready(function() {
     $('#btg-search').click(function() {
         var ricercaFilm = $('#inp').val();
         reset ();
         searchFilm(ricercaFilm);
+        searchTv(ricercaFilm);
+    });
+
+    $("#inp").keyup(function() {
+        if (event.which == 13 || event.keyCode == 13) {
+            var ricercaFilm = $("#inp").val();
+            reset();
+            searchFilm(ricercaFilm);
+            searchTv(ricercaFilm);
+        }
     });
 });
 
@@ -83,6 +119,50 @@ function printFilm(data) {
     };
 };
 
+function searchTv(data) {
+    $.ajax(
+    {
+        url:'https://api.themoviedb.org/3/search/tv',
+        method: 'GET',
+        data:{
+            api_key: '50aabbde5596b4f1a538a2fbc3fe6ee9',
+            language:'it-IT',
+            query: data
+        },
+        success: function(risposta){
+            if (risposta.total_results > 0) {
+                    printTv(risposta.results);
+                } else {
+                    noResults();
+                }
+        },
+        error: function(){
+            alert('errore');
+        }
+    }
+    )
+};
+
+function printTv(data) {
+    var source = $("#film-template").html();
+    var template = Handlebars.compile(source);
+
+    for(var i = 0; i < data.length; i++) {
+
+        var context = {
+            title: data[i].name,
+            original_title: data[i].original_name,
+            original_language: flag(data[i].original_language),
+            vote_average: stella(data[i].vote_average)
+        };
+
+        var html = template(context);
+        $('.list-film').append(html);
+    };
+};
+
+
+
 function noResult() {
     var source = $("#film-template").html();
     var template = Handlebars.compile(source);
@@ -96,9 +176,9 @@ function noResult() {
 function flag(stringa) {
     var flag = "";
     if (stringa == "it") {
-        flag = "<img src='img/it.png'>";
+        flag = "<img src='img/it.png' width='30px'>";
     } else if (stringa == "en") {
-        flag = "<img src='img/en.png'>";
+        flag = "<img src='img/en.png' width='30px'>";
     }
     return flag;
 };
