@@ -74,8 +74,8 @@ function printFilm(data) {
         var context = {
             title: data[i].title,
             original_title: data[i].original_title,
-            original_language: data[i].original_language,
-            vote_average: data[i].vote_average
+            original_language: flag(data[i].original_language),
+            vote_average: stella(data[i].vote_average)
         };
 
         var html = template(context);
@@ -94,5 +94,25 @@ function noResult() {
 };
 
 function flag(stringa) {
+    var flag = "";
+    if (stringa == "it") {
+        flag = "<img src='img/it.png'>";
+    } else if (stringa == "en") {
+        flag = "<img src='img/en.png'>";
+    }
+    return flag;
+};
 
+function stella(numero) {
+    var divisione = numero / 2;
+    var arrotondamento = Math.ceil(divisione);
+    var star = '';
+    for (var i = 1; i <= 5; i++) {
+        if(i <= arrotondamento) {
+            star += '<i class="fas fa-star"></i>'
+        }else {
+            star += '<i class="fas fa-star-o"></i>'
+        }
+    };
+    return star;
 };
