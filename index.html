@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Boolflix</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
         <link rel="stylesheet" href="css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
@@ -13,18 +13,32 @@
         <input type="search" id="inp">
         <button type="button" id="btg-search">Search</button>
 
-        <div class="list-film"></div>
+        <!-- <h2>Film</h2>
+        <div class="covers-Film"></div>
+        <h2>Tv</h2>
+        <div class="covers-tv"></div> -->
+
+        <ul class="list-film"></ul>
+
 
         <script id="film-template" type="text/x-handlebars-template">
 
-            <div class="fm">
+            <li class="fm">
+                <img src="{{img}}" alt="">
+                <p>Tipo: {{tipo}}</p>
                 <h3>Titolo: {{title}}</h3>
                 <h4>Titolo originale: {{original_title}}</h4>
-                <p>Lingua: {{{original_language}}}</p>
+                <p class="lingua">Lingua: {{{original_language}}}</p>
                 <p>Voto: {{{vote_average}}}</p>
-            </div>
+            </li>
 
         </script>
+
+        <script id="no-result-template" type="text/x-handlebars-template">
+
+         <div>{{noResult}}</div>
+
+       </script>
 
         <script src="js/script.js" charset="utf-8"></script>
 

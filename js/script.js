@@ -89,9 +89,9 @@ function searchFilm(data) {
         },
         success: function(risposta){
             if (risposta.total_results > 0) {
-                    printFilm(risposta.results);
+                    printResult(risposta.results, "Film");
                 } else {
-                    noResults();
+                    noResults("Film");
                 }
         },
         error: function(){
@@ -99,24 +99,6 @@ function searchFilm(data) {
         }
     }
     )
-};
-
-function printFilm(data) {
-    var source = $("#film-template").html();
-    var template = Handlebars.compile(source);
-
-    for(var i = 0; i < data.length; i++) {
-
-        var context = {
-            title: data[i].title,
-            original_title: data[i].original_title,
-            original_language: flag(data[i].original_language),
-            vote_average: stella(data[i].vote_average)
-        };
-
-        var html = template(context);
-        $('.list-film').append(html);
-    };
 };
 
 function searchTv(data) {
@@ -131,9 +113,9 @@ function searchTv(data) {
         },
         success: function(risposta){
             if (risposta.total_results > 0) {
-                    printTv(risposta.results);
+                    printResult(risposta.results, "serieTv");
                 } else {
-                    noResults();
+                    noResults("serieTv");
                 }
         },
         error: function(){
@@ -143,15 +125,23 @@ function searchTv(data) {
     )
 };
 
-function printTv(data) {
+function printResult(data, type) {
     var source = $("#film-template").html();
     var template = Handlebars.compile(source);
 
     for(var i = 0; i < data.length; i++) {
-
+        if (type == "Film") {
+            var title = data[i].title;
+            var original_title = data[i].original_title;
+        } else if (type == "SerieTV") {
+            var title = data[i].name;
+            var original_title = data[i].original_name;
+        }
         var context = {
-            title: data[i].name,
-            original_title: data[i].original_name,
+            img:"https://image.tmdb.org/t/p/w300" + data[i].poster_path,
+            tipo: type,
+            title: title,
+            original_title: data[i].original_title,
             original_language: flag(data[i].original_language),
             vote_average: stella(data[i].vote_average)
         };
@@ -163,7 +153,7 @@ function printTv(data) {
 
 
 
-function noResult() {
+function noResult(type) {
     var source = $("#film-template").html();
     var template = Handlebars.compile(source);
     var context = {
@@ -174,24 +164,25 @@ function noResult() {
 };
 
 function flag(stringa) {
-    var flag = "";
-    if (stringa == "it") {
-        flag = "<img src='img/it.png' width='30px'>";
-    } else if (stringa == "en") {
-        flag = "<img src='img/en.png' width='30px'>";
+    var language = ["en", "it"];
+    if (language.includes(stringa)) {
+        return '<img src="img/'+stringa+'.png">';
     }
-    return flag;
+    return stringa;
 };
 
 function stella(numero) {
-    var divisione = numero / 2;
-    var arrotondamento = Math.ceil(divisione);
+    var resto = numero % 2;
+    numero = Math.floor(numero/2);
     var star = '';
     for (var i = 1; i <= 5; i++) {
-        if(i <= arrotondamento) {
-            star += '<i class="fa fa-star"></i>'
-        }else {
-            star += '<i class="fa fa-star-o"></i>'
+        if(i < numero) {
+            star += '<i class="fas fa-star"></i>';
+        } else if (resto != 0){
+            star += '<i class="fas fa-star-half-alt"></i>';
+            resto = 0;
+        } else {
+            star += '<i class="far fa-star"></i>';
         }
     };
     return star;
