@@ -2,45 +2,62 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Boolflix</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
         <link rel="stylesheet" href="css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <title>Boolfix</title>
     </head>
     <body>
 
-        <input type="search" id="inp">
-        <button type="button" id="btg-search">Search</button>
 
-        <!-- <h2>Film</h2>
-        <div class="covers-Film"></div>
-        <h2>Tv</h2>
-        <div class="covers-tv"></div> -->
+        <header>
 
-        <ul class="list-film"></ul>
+            <img src="img\netflix-log.png" alt="logo">
+            
+            <div class="">
+                <input id="input" type="search" name="" value="">
+                <button id="btn-click" type="button" name="button">Search</button>
+            </div>
 
+        </header>
+
+
+
+        <div class="results-film">
+            <ul class="list"></ul>
+        </div>
+
+
+        <div class="results-serietv">
+            <ul class="list"></ul>
+        </div>
+
+        <div class="no-risultati"></div>
 
         <script id="film-template" type="text/x-handlebars-template">
 
-            <li class="fm">
-                <img src="{{img}}" alt="">
-                <p>Tipo: {{tipo}}</p>
-                <h3>Titolo: {{title}}</h3>
-                <h4>Titolo originale: {{original_title}}</h4>
-                <p class="lingua">Lingua: {{{original_language}}}</p>
-                <p>Voto: {{{vote_average}}}</p>
+            <li>
+
+                <div class="descrizione">
+                    <span class="bold">Titolo:</span>
+                    <h3>{{title}}</h3>
+                    <span class="bold">Titolo Originale:</span>
+                    <h4>{{original_title}}</h4>
+                    <p class="lingua">Lingua: {{{original_language}}}</p>
+                    <p>Voto: {{{vote_average}}}</p>
+                    <p>Tipo: {{tipo}}</p>
+                </div>
+                <img class="poster" src="{{img}}" alt="">
+
             </li>
 
         </script>
 
         <script id="no-result-template" type="text/x-handlebars-template">
-
-         <div>{{noResult}}</div>
-
-       </script>
+            <div>{{noResult}}</div>
+        </script>
 
         <script src="js/script.js" charset="utf-8"></script>
-
     </body>
 </html>

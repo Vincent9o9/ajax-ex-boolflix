@@ -1,13 +1,63 @@
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-body {
-    margin: 30px;
+header {
+    height: 100px;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    height: 50px;
+    margin-left: 20px;
+}
+
+#btn-click {
+    margin-right: 20px;
 }
 
 .lingua img {
     width: 20px;
+}
+
+li {
+    position: relative;
+    float: left;
+    list-style: none;
+    height: 400px;
+    width: 280px;
+    margin: 10px 0;
+    margin-left: 20px;
+}
+
+li .poster {
+    height: auto;
+    max-height: 100%;
+    width: 100%;
+}
+
+.descrizione {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0 3px;
+    display: none;
+}
+
+li:hover .descrizione {
+    display: block;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.fas, .far {
+    color: #F5C518;
 }
