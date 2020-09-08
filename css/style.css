@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #141414;
+}
+
 header {
     height: 100px;
     background-color: black;
@@ -42,16 +46,20 @@ li .poster {
     width: 100%;
 }
 
-.descrizione {
+.descrizione{
+    height: 100%;
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    margin: 0 3px;
+    padding: 0 3px;
     display: none;
+    color: white;
 }
 
 li:hover .descrizione {
     display: block;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .bold {
